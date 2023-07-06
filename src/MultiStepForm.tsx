@@ -50,7 +50,7 @@ const MultiStepForm = () => {
 
   return (
     <div className="min-h-screen flex bg-gray-100">
-      <div className="w-16 bg-blue-500 flex-shrink-0">
+      <div className="w-16 bg-white-500 flex-shrink-0">
         <div className="h-full flex flex-col justify-between items-center">
           {[1, 2, 3, 4, 5].map((num) => (
             <div
