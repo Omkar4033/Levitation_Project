@@ -24,52 +24,72 @@ const MultiStepForm = () => {
     setStep((prevStep) => prevStep - 1);
   };
 
+  const setGeolocation = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          const geolocationString = `${latitude}, ${longitude}`;
+          setGeolocationStatus(geolocationString);
+          console.log("latitude is: ",latitude);
+          console.log("longitude is: ",longitude);
+        },
+        (error) => {
+          console.log("Error getting geolocation:", error);
+        }
+      );
+    } else {
+      console.log("Geolocation is not supported by this browser.");
+    }
+  };
+
+  const handleMultiFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = Array.from(e.target.files || []);
+
+    if (files.length <= 5) {
+      setMultiFiles(files);
+    } else {
+      alert("Maximum 5 files allowed");
+    }
+  };
+
   const handleFormSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     // Perform form submission logic here
+    console.log("name: ", geolocationStatus);
 
-    setStep(1);
-    setName("");
-    setEmail("");
-    setPhone("");
-    setAddressLine1("");
-    setAddressLine2("");
-    setCity("");
-    setState("");
-    setPincode("");
-    setCountry("");
     setIsFormSubmitted(true);
-  };
-
-  const getProgressBarStyle = (stepNumber: number) => {
-    return {
-      height: `${(stepNumber - 1) * 25}%`,
-    };
   };
 
   return (
     <div className="min-h-screen flex bg-gray-100">
-      <div className="w-16 bg-white-500 flex-shrink-0">
-        <div className="h-full flex flex-col justify-between items-center">
-          {[1, 2, 3, 4, 5].map((num) => (
-            <div
-              key={num}
-              className={`rounded-full text-white w-10 h-10 flex justify-center items-center ${
-                step === num ? "bg-blue-500" : "bg-gray-300"
-              }`}
-            >
-              {num}
-            </div>
-          ))}
-        </div>
+      <div className="flex flex-col pt-40 items-center  w-36  bg-gray-300">
+        {[1, 2, 3, 4, 5].map((num) => (
+          <div
+            key={num}
+            onClick={()=>setStep(num)}
+            className={`flex m-3 items-center justify-center text-lg font-mono text-white ${
+              step === num ? "bg-blue-500" : "bg-gray-500"
+            }`}
+            style={{
+              width: "5rem",
+              height: "5rem",
+              borderRadius: "50%",
+              boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.2)",
+            }}
+          >
+            {num}
+          </div>
+        ))}
       </div>
-      <div className="flex-grow flex flex-col justify-center items-center">
+      <div className="flex-grow flex flex-col justify-center items-center border-2-blue-500">
         <h1 className="text-3xl font-bold mb-4">Multi-Step Form</h1>
         <form onSubmit={handleFormSubmit} className="w-full max-w-lg">
           {step === 1 && (
             <div>
-              <label htmlFor="name" className="block mb-2">
+              <label htmlFor="name" className="block mb-3 text-lg border-lg">
                 Name
               </label>
               <input
@@ -81,7 +101,7 @@ const MultiStepForm = () => {
                 required
               />
 
-              <label htmlFor="email" className="block mb-2">
+              <label htmlFor="email" className="block mb-3 text-lg border-lg">
                 Email
               </label>
               <input
@@ -93,7 +113,7 @@ const MultiStepForm = () => {
                 required
               />
 
-              <label htmlFor="phone" className="block mb-2">
+              <label htmlFor="phone" className="block mb-3 text-lg border-lg">
                 Phone
               </label>
               <input
@@ -119,7 +139,7 @@ const MultiStepForm = () => {
 
           {step === 2 && (
             <div>
-              <label htmlFor="addressLine1" className="block mb-2">
+              <label htmlFor="addressLine1" className="block mb-3 text-lg border-lg">
                 Address Line 1
               </label>
               <input
@@ -131,7 +151,7 @@ const MultiStepForm = () => {
                 required
               />
 
-              <label htmlFor="addressLine2" className="block mb-2">
+              <label htmlFor="addressLine2" className="block mb-3 text-lg border-lg">
                 Address Line 2
               </label>
               <input
@@ -143,7 +163,7 @@ const MultiStepForm = () => {
                 required
               />
 
-              <label htmlFor="city" className="block mb-2">
+              <label htmlFor="city" className="block mb-3 text-lg border-lg">
                 City
               </label>
               <input
@@ -155,7 +175,7 @@ const MultiStepForm = () => {
                 required
               />
 
-              <label htmlFor="state" className="block mb-2">
+              <label htmlFor="state" className="block mb-3 text-lg border-lg">
                 State
               </label>
               <input
@@ -167,7 +187,7 @@ const MultiStepForm = () => {
                 required
               />
 
-              <label htmlFor="pincode" className="block mb-2">
+              <label htmlFor="pincode" className="block mb-3 text-lg border-lg">
                 Pincode
               </label>
               <input
@@ -179,7 +199,7 @@ const MultiStepForm = () => {
                 required
               />
 
-              <label htmlFor="country" className="block mb-2">
+              <label htmlFor="country" className="block mb-3 text-lg border-lg">
                 Country
               </label>
               <input
@@ -211,7 +231,7 @@ const MultiStepForm = () => {
           {step === 3 && (
             <div>
               <div className="mb-6">
-                <label htmlFor="file" className="block mb-2">
+                <label htmlFor="file" className="block mb-3 text-lg border-lg">
                   File Upload (PNG or PDF)
                 </label>
                 <div className="flex items-center">
@@ -234,7 +254,7 @@ const MultiStepForm = () => {
               </div>
 
               <div>
-                <label htmlFor="multiFiles" className="block mb-2">
+                <label htmlFor="multiFiles" className="block mb-3 text-lg border-lg">
                   Multiple File Upload (PNG or PDF)
                 </label>
                 <div className="mb-4">
@@ -242,7 +262,7 @@ const MultiStepForm = () => {
                     type="file"
                     id="multiFiles"
                     onChange={(e) =>
-                      setMultiFiles(Array.from(e.target.files || []))
+                      handleMultiFileChange
                     }
                     className="hidden"
                     accept=".png,.pdf"
@@ -310,9 +330,7 @@ const MultiStepForm = () => {
                   ) : (
                     <button
                       type="button"
-                      onClick={() =>
-                        setGeolocationStatus("Geolocation captured")
-                      }
+                      onClick={setGeolocation}
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
                       Capture Geolocation
@@ -329,7 +347,7 @@ const MultiStepForm = () => {
                   </button>
                   {geolocationStatus && (
                     <button
-                      type="button"
+                      type="submit"
                       onClick={handleNextStep}
                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                     >
@@ -358,41 +376,28 @@ const MultiStepForm = () => {
                   <path d="M8 14s1.5-2 4-2 4 2 4 2" />
                   <path d="M9.7 9.4L12 12l2.3-2.3" />
                 </svg>
-                <p className="text-lg font-semibold text-center mb-4">
+                {isFormSubmitted && <p className="text-lg font-semibold text-center mb-4">
                   Form submitted successfully!
-                </p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setStep(1);
-                    setName("");
-                    setEmail("");
-                    setPhone("");
-                    setAddressLine1("");
-                    setAddressLine2("");
-                    setCity("");
-                    setState("");
-                    setPincode("");
-                    setCountry("");
-                    setFile(null);
-                    setMultiFiles([]);
-                    setGeolocationStatus("");
-                    setIsFormSubmitted(false);
-                  }}
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                >
-                  Restart Form
-                </button>
+                </p>}
+                <div className="flex justify-between">
+                  <button
+                    type="button"
+                    onClick={handlePreviousStep}
+                    className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    Previous
+                  </button>
+                  <button
+                    type="submit"
+                    className="bg-blue-500 ml-3 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
             </div>
           )}
         </form>
-      </div>
-      <div className="w-16 bg-blue-500 flex-shrink-0 relative">
-        <div
-          className="h-full w-1 bg-white absolute top-0 left-1/2 transform -translate-x-1/2"
-          style={getProgressBarStyle(step)}
-        ></div>
       </div>
     </div>
   );

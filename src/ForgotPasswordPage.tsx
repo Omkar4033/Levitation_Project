@@ -10,12 +10,14 @@ const ForgotPasswordPage = () => {
 
   const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
+    setEmailError(false);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     setSuccessMessage('Password reset instructions sent to your email!');
+
   };
   const handleback=()=>{
     navigate('/login');
