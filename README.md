@@ -1,5 +1,16 @@
 # Getting Started with Create React App
 
+![image](https://github.com/Omkar4033/Levitation_Project/assets/91587106/c5208aaa-9d49-4af3-9f5e-83a577a34029)
+![image](https://github.com/Omkar4033/Levitation_Project/assets/91587106/1bf039a1-ca84-4fc8-a15d-9edc59700442)
+![image](https://github.com/Omkar4033/Levitation_Project/assets/91587106/ee836d4a-53f5-493a-b3bb-b44f343be3f4)
+![image](https://github.com/Omkar4033/Levitation_Project/assets/91587106/ae634cfe-8d80-4c7a-8c00-b584cf810ba9)
+![image](https://github.com/Omkar4033/Levitation_Project/assets/91587106/2dbff525-a2f1-4eee-86f3-9039e549502e)
+![image](https://github.com/Omkar4033/Levitation_Project/assets/91587106/8bfd5a9a-24e1-4127-994a-617f803e7fbd)
+![image](https://github.com/Omkar4033/Levitation_Project/assets/91587106/a8f1b083-8a1d-4453-a4b4-fb1a86509709)
+![image](https://github.com/Omkar4033/Levitation_Project/assets/91587106/ecdc74b7-e6e0-4a99-9fac-69b743904357)
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
